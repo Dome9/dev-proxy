@@ -1,6 +1,9 @@
 {
-	"proxy_port": 9000,
+	"port": 9000,
 	"origin_server": "http://127.0.0.1:80",
+	"static":[
+		{"route":"/v2", "path":"/path/to/local/folder", "comment": "serve local files nested under 'path' folder"}
+	],
 	"routes":[
 		{"route" : "a/b/c?v=123", "path" : "data/abc123.json", "comment": "we put the specific path before the generic one since a match is evaluated by this order"},
 		{"route" : "a/b/c", "path" : "data/abc.json", "comment": "this will catch any form of a/b/c such as a/b/c?param1=val1"}
