@@ -37,8 +37,12 @@ app.use(function(req, res, next) {
 // Last handler is to proxy all unhandled requests to origin server
 app.use(function(req,res,next){
 	console.log("* proxying to origin");
-	req.headers["X-FORWARDED-FOR"] = req.connection.remoteAddress; 
-	proxy.web(req, res, { target: config.origin_server});
+	req.headers["X-FORWARDED-FOR"] = req.connection.remoteAddress;
+	proxy.web(req, res, { target: config.origin_server, secure:false});
+});
+
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
 });
 
 console.log("Starting dev-proxy , Config=",config);
