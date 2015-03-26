@@ -25,13 +25,12 @@ _.each(config.static,
 app.use(function(req, res, next) {
  	var configured_route = _.find(config.routes, function(route){
  		return req.url.indexOf(route.route) >-1;});
-	if(configured_route ){
-		var absolute_path = configured_route.path.indexOf('/')==0 ? configured_route.path : __dirname + "/" + configured_route.path; // we allow absolute or relative paths (that do not start with /)
-		console.log("*** local override : ",absolute_path);
-		res.sendFile(absolute_path ); 
-	}
-	else
-		next();
+		if(configured_route){
+			console.log("*** local override : ", configured_route.path);
+			res.sendFile(configured_route.path); 
+		}
+		else
+			next();
 });
 
 // Last handler is to proxy all unhandled requests to origin server
